@@ -1,0 +1,1 @@
+[bellatoris님과의 cs231n 스터디 Week 2](https://github.com/Industrial-Functional-Agent/cs231n/blob/master/Week2/Lecture2.md)
