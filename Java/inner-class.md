@@ -12,7 +12,7 @@ OuterClass.NestedClass nst = new OuterClass.NestedClass();
 ```java
 OuterClass out = new OuterClass();
 OuterClass.InnerClass in1 = out.new InnerClass();
-OuterClass.InnerClass in2 = out.net InnerClass();
+OuterClass.InnerClass in2 = out.new InnerClass();
 ```
 
 * **inner** 인스턴스는 **outer** 인스턴스에 종속된다.
