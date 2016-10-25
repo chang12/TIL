@@ -47,5 +47,38 @@ mvn -B archetype:generate \
 **packaging** 은 package type 을 명시한다. artifact 이 생성되는 포맷 뿐 아니라 build lifecycle 도 결정하는 내용이다.
 
 **version** 에서 1.0-SNAPSHOT 처럼 뒤에 SNAPSHOT 을 붙이면 development 단계임을 의미한다.
+```
+mvn compile
+```
+pom.xml 파일이 있는 위치에서 컴파일 명령을 실행할 수 있다. src 디렉토리와 같은 계층에 target 디렉토리가 생기고 .class 파일이 생성되며, 컴파일 상태(status)가 기록된 디렉토리와 파일도 생긴다. 예를 들어, 어떤 .java 파일들을 컴파일 했고, 그 결과로 어떤 .class 파일이 생성됬는지가 .lst 포맷의 문서로 생성된다.
+```
+mvn test 
+```
+main 코드를 (다시) 컴파일 하고, test 코드도 컴파일 하고, 테스트를 실행한다.
+```
+mvn test-compile
+```
+테스트를 위한 컴파일 과정만 진행하고, 테스트는 하지 않고 싶은 경우에 사용할 수 있는 커맨드이다.
+```
+mvn package
+```
+main 코드 컴파일 하고, test 코드 컴파일 하고, 테스트 실행하고, jar 파일을 생성한다. target 디렉토리에 arfifactId-version.jar 이름으로 생성된다.
+```
+mvn install
+```
+main 코드 컴파일, test 코드 컴파일, 테스트 실행, jar 파일 생성하고 .m2 디렉토리 아래에 pom.xml과 jar 파일을 설치한다.
+```
+mvn clean
+```
+target 디렉토리의 내용물을 지운다.
 
+**${basedir}/src/main/resources** 하위에 파일들을 집어넣으면, JAR 파일 생성때 함께 패키징 된다. resources 하위 경로가 JAR 파일에 그대로 적용된다. 
+**${basedir}/src/test/resources** 하위에 넣으면 테스트 환경에서 사용할 수 있다. 만약 resources 디렉토리에 test.properties 라는 파일을 집어넣었다고 한다면, Java 코드에서 이를 꺼내쓸 수 있다.
+```java
+// Retrieve resource
+InputStream is = getClass().getResourceAsStream( "/test.properties" );
  
+// Do something with the resource
+```
+
+dependencies 들은 pom.xml 에 dependencies section에 하나 하나의 dependency section 에 기술된다. 처음에 local repository 에 존재하는지 찾고, 없다면 remote repository 에서 local repository 로 다운로드 받으려 시도한다.
