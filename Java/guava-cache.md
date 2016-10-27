@@ -8,7 +8,7 @@
   <version>19.0</version>
 </dependency>
 ```
-* 완료! Guava 를 사용할 수 있다.
+쉽게 완료! Guava 라이브러리를 import 해서 사용할 수 있다!!
 
 ## Guava Cache
 [가이드 링크](https://github.com/google/guava/wiki/CachesExplained)
@@ -22,3 +22,5 @@ Eviction 에 대해서 얘기한다. Cache 를 쓴다는 것 자체가, 애초�
 * reference-based: 무슨 얘기인지 이해 못했다. weak/soft/strong reference 에 대해서 이해해야 할 것이다.
 
 RemovalNotification 을 인자로 받는 onRemoval 메소드를 오버라이딩 하면서 RemovalListener 인터페이스를 구현하고, Cache 에 등록할 수 있다. 기본값으로 RemovalListener 의 동작은 synchronous 하므로, 너무 비싼 연산이면 Cache 의 성능이 저하된다. asynchronous 하게 만드려면 RemovalListeners.asynchronous annotation 을 쓸 수 있다.
+
+## Guava Cache vs Memcached
