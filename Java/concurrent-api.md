@@ -2,7 +2,7 @@
 
 http://javacan.tistory.com/entry/134
 
-## Example Case: Web Application
+## Motivation: Web Application
 웹 서버와 같이 동시에 다수의 요청을 처리해야 하는 어플리케이션을 개발해야 할 경우, 코드는 다음과 같은 형태를 띄게 된다.
 ```java
 while(true) {
@@ -11,16 +11,15 @@ while(true) {
 	new Thread(requestHandler).start();
 }
 ```
-* `Thread` 의 생성자에 `Runnable` 인스턴스를 넘겨주는 것은 익숙하다.
-* `RequestHandler` 는 JDK 에 존재하는 클래스는 아니고, `Runnable` 인스턴스를 구현한 클래스일 것.
+`Thread` 의 생성자에 `Runnable` 인스턴스를 넘겨주는 것은 익숙하다. `RequestHandler` 는 JDK 에 존재하는 클래스는 아니고, `Runnable` 인스턴스를 구현한 클래스일 것이다. 코드를 이해하는데는 문제가 없다. 하지만 몇가지 문제점을 지닌다.  
 * 요청을 처리하는 로직이 단순한 경우에, 배보다 배꼽이 더 커질 수 있다. 실제 비즈니스 로직은 짧지만, `Thread` 생성 및 종료에 의한 오버헤드가 크기 때문이다.
-* 또한 `Thread` 개수에 제한을 두지 않으므로, `OutOfMemoryError` 가 발생할 수 있다.
-* 이뿐만 아니라 `Thread` 개수가 많아지면, 스케줄링에 따른 오버헤드도 존재한다.
+* `Thread` 개수에 제한을 두지 않으므로, `OutOfMemoryError` 가 발생할 수 있다.
+* `Thread` 개수가 많아지면, 스케줄링에 따른 오버헤드도 존재한다.
 
 ## Executor
 위의 문제들을 해결하기 위해 동시에 다수의 요청을 처리해야하는 어플리케이션에서는 **Thread Pool** 을 사용한다. 즉, 일정 개수의 `Thread` 들을 미리 생성해놓고 그 범위내에서만 사용한다.
 
-이 **Thread Pool** 의 개념을 인터페이스로 만든게 JDK 의 `Executor` 이다. `Executor` 인터페이스는 하나의 메소드를 가지는 인터페이스다.
+이 **Thread Pool** 의 개념을 아우르는 인터페이스가 `Executor` 이다. `Executor` 인터페이스는 하나의 메소드를 가진다.
 ```java
 public interface Executor {
 	// @throws RejectedExecutionException : if this task cannot be accepted for execution
@@ -64,7 +63,7 @@ public interface Future<V> {
 	V get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException);
 }
 ```
-asynchronous 한 작업의 결과를 기술하기 위한 클래스라고 이해했다. 
+`Executor` 의 개념은 `Callable` 의 비동기적 실행을 의미한다. 그러므로 `Callable` 을 `Executor` 에 제출한 이후의 어떤 시점에서 반환값은 존재할 수도 있고, 아직 채워지지 않았을 수도 있다. `Future` 란, 이러한 시간 의존성을 추상화한 클래스라고 이해했다.
 ## ExecutorService
 `ExecutorService` 인터페이스는 `Executor` 인터페이스를 상속한다. `Executor` 의 라이프 사이클 관리와 `Callable` 타입을 파라미터로 받을 수 있는 인터페이스를 추가로 지닌다. `Future` 를 살펴봤던 이유가 바로 이 `Callable` 타입을 파라미터로 받는 인터페이스를 이해하기 위해서였다.
 ```java
