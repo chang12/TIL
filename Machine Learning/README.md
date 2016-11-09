@@ -1,0 +1,1 @@
+* [Standford cs231n 스터디](https://github.com/Industrial-Functional-Agent/cs231n) with @bellatoris
