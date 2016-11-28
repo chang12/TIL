@@ -5,6 +5,7 @@
 **Subject** 는 구독을 원하는 Observer 들이 자신을 등록/해제할 수 있는 인터페이스를 제공한다. 이를 통해서 Subject 는 자신을 구독하는 Observer 인스턴스들의 리스트를 가지게 된다.
 
 **Observer** 는 자신이 구독하는 Subject 가 발행되었을 때, 실행되기를 원하는 로직을 시작시키는 인터페이스를 제공한다. 이는 자신이 구독하는 Subject 가 발행하면서 호출해준다.
+
 굉장히 많이 요구되는 패턴이기 때문에 그 사용성이 매우 크겠다는 생각을 했다.
 ## java.util.Observable/Observer
 Java 에서는 이러한 observer pattern 을 편리하게 사용할 수 있도록, **java.util** 패키지에 **Observable** 과 **Observer** 클래스를 제공해주고 있었다. Observable 은 concrete class 치고, Observer 는 interface 였다. 각각의 메서드 선언이 위에서 기술한 observer pattern 의 내용을 그대로 표현하고 있었다. 메서드의 이름과 시그니처를 보면 어떤 내용일지 거의 짐작할 수 있다.
