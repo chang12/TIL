@@ -9,7 +9,7 @@ for (Field field : clazz.getDeclaredFields()) {
 메서드가 있어서 아주 편리하다.
 ```java
 Field field = ...
-if (field.getType.isEnum()) {
+if (field.getType().isEnum()) {
 	...
 }
 ```
