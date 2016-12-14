@@ -59,4 +59,13 @@ Thread name: worker-thread-4, Runnable number: 10
 ## 추가 생각
 위 테스트 코드에서는 `Runnable` 을 제출하는 쪽은 단일 thread 였다. 하지만 이 마저도 thread pool 을 사용해서 멀티 thread 로 처리할 수 있다. 지금까지 봐온 경우로는 이를 위한 thread pool 을 사용할때는 pool 크기 만큼만 Runnable(작업 Runnable 을 만들어서 작업 thread pool 에 제출하는) 을 제출한다. 
 
-이 경우 두개의 thread pool 이 존재하고, 그 크기는 다를 수 있다. 그러므로 **두 크기를 어떻게 설정**해야 좋은 엔지니어링이 될지 고민할만한 이슈라는 생각을 했다. 
+이 경우 두개의 thread pool 이 존재하고, 그 크기는 다를 수 있다. 그러므로 **두 크기를 어떻게 설정**해야 좋은 엔지니어링이 될지 고민할만한 이슈라는 생각을 했다.
+
+## 종료
+thread pool 을 생성해서 사용한 메인 thread 가 종료되더라도, thread pool 은 함께 종료되지 않는다. thread pool 을 명시적으로 종료시키는 방법은 크게 3가지가 있다.
+
+* **shutdown()** : 현재 처리중인 작업 + 작업 큐에 대기중인 작업을 모두 완료하고 thread pool 을 종료한다. 
+* **shutdownNow()** : 현재 처리중인 작업에 interrupt 를 발생시켜서 작업 중지를 요청하고, 작업 큐에 대기중인 작업들의 목록을 반환한다. 
+* **awaitTermination(long, TimeUnit)** : 파라미터에 표현한 시간만큼 대기하고, 대기 후에도 처리중인 작업이 있따면 작업 중지를 요청한다.  
+
+조금 애매하기는 하다. 이 또한 테스트 코드로 확인해봐야할 것이다. 지금까지 본 코드들에서는 shutdown 메소드 호출 후에 Long.MAX_VALUE 만큼의 ms 를 대기하도록 awaitTermination 메서드를 호출했다. 그러므로 thread pool 에 집어넣은 모든 작업이 종료될때까지 명시적으로 대기한 셈이다.
