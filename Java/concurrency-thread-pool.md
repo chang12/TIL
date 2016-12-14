@@ -25,7 +25,7 @@ AtomicInteger count = new AtomicInteger(0);
 ExecutorService service =
     Executors.newFixedThreadPool(sizeOfThreadPool, new ThreadFactoryBuilder().setNameFormat("worker-thread-%d").build());
 
-for (int i = 0; i < 100; i++) {
+for (int i = 0; i < numOfSubmit; i++) {
     service.submit(() -> {
         String msg =
             String.format("Thread name: %s, Runnable number: %d", Thread.currentThread().getName(), count.addAndGet(1));
