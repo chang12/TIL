@@ -6,27 +6,27 @@ thread pool 을 만들고, `Runnable` 을 submit 하는 코드를 작성하면, 
 
 ```java
 // thread pool 의 크기보다, 제출하는 Runnable 의 개수를 훨씬 많이 설정합니다.
-        // Rejection 을 유도하기 위해서입니다.
-        final int numOfThreads = 3;
-        final int numOfRunnables = 15;
+// Rejection 을 유도하기 위해서입니다.
+final int numOfThreads = 3;
+final int numOfRunnables = 15;
 
-        ExecutorService service = new ThreadPoolExecutor(
-                numOfThreads, numOfThreads,
-                0L, TimeUnit.MILLISECONDS,
-                new ArrayBlockingQueue<Runnable>(numOfThreads));
+ExecutorService service = new ThreadPoolExecutor(
+        numOfThreads, numOfThreads,
+        0L, TimeUnit.MILLISECONDS,
+        new ArrayBlockingQueue<Runnable>(numOfThreads));
 
-        for (int i = 0; i < numOfRunnables; i++) {
-            int finalI = i;
-            try {
-                service.submit(()->{
-                    System.out.println("submitted: " + finalI);
-                });
-            } catch (RejectedExecutionException e) {
-                System.out.println("rejected: " + finalI);
-            }
-        }
+for (int i = 0; i < numOfRunnables; i++) {
+    int finalI = i;
+    try {
+        service.submit(()->{
+            System.out.println("submitted: " + finalI);
+        });
+    } catch (RejectedExecutionException e) {
+        System.out.println("rejected: " + finalI);
+    }
+}
 
-        service.shutdown();
+service.shutdown();
 ```   
 ``` shell
 # 결과 출력
