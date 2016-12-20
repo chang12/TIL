@@ -30,4 +30,4 @@ def serve_static_files(path):
     return send_from_directory('static', path)
 ```
 
-이 정도로 기본 세팅을 갖춰놓고, node_modules / static / templates 하위에서는 서브 디렉토리를 생성해서 분간하면 어떨까 생각해봤다.
+이렇게 기본 세팅을 갖춰놓으면, node_modules / static / templates 디렉토리의 하위 경로도 커버되므로 끝난것 아닌가하고 생각했다.
