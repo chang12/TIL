@@ -14,12 +14,12 @@ Isolation 을 처음으로 소개하면서, 강의자료에서는 **serial execu
 * conflict serializability
 * view serializability
 
- ## Conflict
+## Conflict
 conflict 의 개념은 **두 instruction 간에** 정의한다. 아래 두 조건을 만족하는 두 instruction 을 서로 conflict 하다고 정의한다.
 * 같은 item 에 접근한다.
 * 둘 중 하나가 write 연산이다.
 
- ## Conflict Equivalent
+## Conflict Equivalent
 conflict equivalency 는 **두 schedule 간에** 정의한다. non-conflicting 한 instruction 끼리 순서를 바꿔나가서 동일해지는 두 schedule 을 conflict equivalent 하다고 부른다.
 
 ## Conflict Serializable
