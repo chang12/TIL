@@ -1,0 +1,1 @@
+상속/구현하는 sub-class 의 메서드에서 override/implement 하는 메서드의 **throw signature 를 축소**할 수 있다. 하지만 더 늘릴 수는 없다. 그러므로 외부에 공개해야하는 API 에서 super-class 를 설계할 때는 가능한 넓은 범위로 설계하면 될 것이다.
