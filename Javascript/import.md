@@ -1,0 +1,1 @@
+ES6 부터는 javascript 에서도 import 구문을 제공한다.
