@@ -1,0 +1,6 @@
+SICP 스터디를 진행하면서 간간히 기록한다. 이렇게 기록용으로 쓸때는 **README.md** 파일로 만드는게 굳이겠다.
+
+* block comments
+* import / module
+* [Racket 에는 one-armed if variant 가 없다. 언제나 else stmt 를 명시해야한다.](http://stackoverflow.com/questions/10863192/why-is-one-armed-if-missing-from-racket)
+* [if stmt 에 2개 이상의 expression 을 쓸 수 없다. 그러기 위해서는 begin 키워드를 쓴다](http://stackoverflow.com/questions/15964005/scheme-if-statement-performing-multiple-actions)
