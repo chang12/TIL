@@ -21,8 +21,8 @@ angular
 
 ```html
 <div ng-controller="DummyCtrl">
-    <child-one-directive share="share"></child-directive>
-    <child-two-directive share="share"></child-directive>
+    <child-one-directive share="share"></child-one-directive>
+    <child-two-directive share="share"></child-two-directive>
 </div>
 ``` 
 
