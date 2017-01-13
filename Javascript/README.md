@@ -1,0 +1,4 @@
+## Class 와 Enum
+parent controller 에서 alert directive 에 새로운 status 를 set 하는 상황을 생각하는 중이었다. parent controller 는 다른 child directive 와의 상호작용 중간 중간에 적절한 status alert 를 유저에게 보여주고 싶을 것이다. parent controller --> alert directive 로 one-way binding 이라 생각할 수 있다. parent controller 가 status 를 set 하면, alert directive 는 그에 맞춰 자신의 visibility / bootstrap alert class / message 등을 설정할 것이다.
+
+이 set 정보를 하나의 class 로 표현하면 좋을 것이고, 그 class 에서 alert class 를 지정하는 필드는 몇개의 정해진 후보군 중에서 하나를 선택하는 enum 이면 좋을 것이다. 그리고 어딘가에 정의된 class / enum 을 parent controller 와 alert directive 에서 import 해서 사용해야 할 것이다. 그런 맥락에서 Javascript 의 class / enum / import 방법이 궁금했고, 이를 해결하기 위한 가장 좋은 방법이 TypeScript 인지 확인하고 싶었다.
