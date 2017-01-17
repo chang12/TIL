@@ -1,3 +1,5 @@
+* **Kinesis** : stream 들을 보관하는 역할로 사용한다. [공식 문서에서 요금 사용 예시를 시나리오로 설명한 내용](https://aws.amazon.com/ko/kinesis/streams/pricing/)을 읽으면 느낌을 잘 받을 수 있다.
+
 ## Linux 가상 머신 시작
 ```
 AMI 는 소프트웨어 구성(예: 운영 체제, 애플리케이션 서버 및 애플리케이션)이 포함된 템플릿입니다.

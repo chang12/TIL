@@ -1,5 +1,1 @@
-# 책
-* [난 정말 JAVA를 공부한 적이 없다구요](http://book.naver.com/bookdb/book_detail.nhn?bid=6056781)
-
-# 라이브러리
-* [Guice](https://github.com/google/guice)
+* Netty 를 공부하자. 예전에 찾아놓은 [블로그 포스트](http://jdm.kr/blog/151)를 따라하는것으로 시작하자.
