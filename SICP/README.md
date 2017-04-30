@@ -9,3 +9,12 @@
 * `set-car!` 과 `set-cdr!` 를 사용하기 위한 첫 시도는 근우가 알려준 neil/sicp 를 사용하는 방법이었다. `#lang planet neil/sicp` 로 언어 설정을 변경하면 사용할 수 있었다. 문제는 이렇게 언어 설정을 변경하고나면 `require` / `provide` 구문을 사용할 수 없었다.
 * 두번째 방법은 스터디 시간에 근우가 알려준 `require sicp/mpair` 로 패키지를 임포트하는 방법이었다. 이 경우 언어 설정은 racket 으로 그대로 남기 때문에 `require` / `provide` 를 그대로 사용할 수 있다. `cons`, `car`, `cdr` 대신 `mcons`, `mcar`, `mcdr` 을 사용해야하는게 좀 번거로웠다.
 * 집에와서 찾아보니, `#lang planet neil/sicp` 는 옛날 DrRacket 을 위한 방법이고, 그 최신버전은 깔끔하게 사용할 수 있는 [SICP Collection](http://docs.racket-lang.org/sicp-manual/index.html) 이었다. `require sicp` 인걸보니 `require sicp/mpair` 는 패키지의 일부만 임포트하는 선언이었나보다. `require sicp` 로 임포트하면 `cons`, `car`, `cdr` 을 그대로 사용할 수 있으니 가장 쾌적하다.
+
+## 2017-04-30 (Sun)
+
+* **serialized** 와 비교해서 **interleaved** 의 개념을 이해한것이 한가지 수확이다. 
+* concurrency 문제는 데이터베이스 수업 시간에나 꽤 심도있게 다뤘었다. 그러나 이는 비단 데이터베이스의 문제가 아니라 CS 의 각 계층별로 존재하는 문제라는 점을 다시 상기했다.
+* `mutex` 구현과 관련된 45번 주석을 읽어보다가 의문이 생겨서 [Busy Waiting 위키피디아](https://en.wikipedia.org/wiki/Busy_waiting#Alternatives) 를 읽었는데 유익했다. `mutex` 획득을 기다리는 개체(process 라고 쓰려다가, multi-thread 가 생각나서....) 한테는 아예 time slice 를 나눠주지 않는게 효율적일텐데 이를 지원하는 system call 이 있다는 얘기였다. 그러므로 Java 같은 언어에서도 `synchronized` 구문을 구현할때 이러한 system call 을 사용했을 것 같다.
+* mutex 획득을 위해서는 atomic operation 이 필요하다는 내용과, atomic operation 의 예시를 든 46번 주석을 읽었는데 새롭게 다가왔다. 어플리케이션 코드에서 OS 에게 나를 interrupt 하지 말라고 요청(명령) 할 수 있다는 얘기인데, 처음 접하는 개념이었다.
+* dead lock 의 개념으로 자연스럽게 전환된다. 가장 간단한 방법은 shared resource 에 unique identifier 를 매기고, 늘 낮은 identifier 값의 resource 의 mutex 부터 획득하도록 규칙을 정하는거라고 하는데 그럴싸했다. 그러나 늘 가능한 방법은 아닌가보다. 일반적으로는 transaction processing 이라는 이름의 주제로 다뤄지는 듯.
+* **barrier synchronization** 이라는 개념도 새롭고, 이를 위한 **instruction level** 의 서포트가 있다는 것도 놀랍다.   
