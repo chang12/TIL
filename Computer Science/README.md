@@ -1,0 +1,1 @@
+* [프로세스](http://mooneegee.blogspot.kr/2015/01/os-process.html)와 [쓰레드](http://mooneegee.blogspot.kr/2015/01/os-thread.html)에 대한 블로그 포스트를 페이스북에서 봤다. 중간에 삽입된 그림이 참 좋다.
