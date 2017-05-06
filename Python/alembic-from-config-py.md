@@ -1,0 +1,3 @@
+alembic 과 관련된 설정은 `alembic init 폴더_이름` 명령어를 실행했을때 만들어지는 `alembic.ini` 파일에 적힌다. 여기에 접속할 DB 서버의 URL 을 적게 되는데, URL 에 password 값이 들어가므로 GitHub 같은 VCS 에 올릴 수 없게 된다. 회사에서 보통 사용하는 패턴은 `config.py` 파일을 만들어서 거기에 모든 시크릿한 설정값들을 넣어두고, `.gitignore` 에 추가하고, VCS 에 업로드할때는 `config.py.sample` 파일을 만들어서 `config.py` 의 각 설정값들의 예시나 간단한 설명을 달아둔다.
+
+하지만 alembic 에서는 .py 파일이 아니라 `alembic.ini` 파일이므로 좀 추가적인 작업이 필요했다. 다행히 구글링 한번에 [SO 에서 관련된 포스트](http://stackoverflow.com/questions/22178339/is-it-possible-to-store-the-alembic-connect-string-outside-of-alembic-ini)를 찾을 수 있었다. `alembic.ini` 파일의 설정값들을 `env.py` 에서 코드로 건드릴 수 있었다.
