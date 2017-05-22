@@ -1,6 +1,11 @@
 ## 2017-05-22 (Sun)
 
-* `cons-stream` 과 `delay` 는 `define` 구문을 사용해서 procedure 로 정의하는 것이 불가능하다. Scheme 과 마찬가지로 Racket 도 **applicative-order evaluation** 으로 동작한다. 그러므로 **"evaluate the arguments and then apply"** 정책으로 동작한다. 그러므로 `(define (cons-stream a b) (cons a (delay b))` 으로 `cons-stream` 을 `define` 구문으로 정의하면 `delay` 에 `b` 를 넘기기 전에 미리 evaluation 하므로 결국 lazy-evaluation 하지 못한다. 책에서도 56번 주석에서 `cons-stream` 과 `delay` 는 **special form** 으로 정의해야한다고 적혀있다. 이 문제에 대해 지난주 스터디때 스터디원들이 많은 고민이 있었고, `define` 대신 `define-syntax` 구문으로 정의해야한다는걸 파악했다. 실제로 `sicp` 패키지에서도 `define-syntax` 로 구현되어있다. 아마 책에서는 4.2절에서 lazy evaluation 에 대해 다루는 내용이 있는데, 여기서 소개되지 않을까 싶다.
+* `assignment` 는 **"time variation in real world"** 를 **"time variation in the computer"** 로 표현하는 한 가지 방법이었다. 다른 방법도 있다. 바로 `stream` 이라는 자료구조를 사용하는 방법이다. 어짜피 컴퓨터가 표현하는 time 이라는건 discrete step 으로 구현된다. `stream` 은 이를 사용해서 time function 을 infinite sequence 로 모델링한다. `stream` 이 단순히 `list` 로 표현된 sequence 에서 진화하는 과정에서 delayed evaluation 이 등장한다.
+* `delay` 의 반환형은 `promise` 이다. 지금은 값을 evaluate 하지 않았지만, 나중에 원하는 시점에 evaluation 해주겠다는 약속이라는 측면에서 이해하면 정말 직관적인 이름이다. `force` 로 값을 evaluate 한다. 
+* `call-by-name` / `call-by-need` 라는 개념이 소개되는데, 정확히 이해하지 못했다.
+* `cons-stream` 과 `delay` 는 `define` 구문을 사용해서 procedure 로 정의하는 것이 불가능하다. Scheme 과 마찬가지로 Racket 도 **applicative-order evaluation** 으로 동작한다. 그러므로 **"evaluate the arguments and then apply"** 정책으로 동작한다. 그러므로 `(define (cons-stream a b) (cons a (delay b))` 으로 `cons-stream` 을 `define` 구문으로 정의하면 `delay` 에 `b` 를 넘기기 전에 미리 evaluation 하므로 결국 lazy-evaluation 하지 못한다. 책에서도 56번 주석에서 `cons-stream` 과 `delay` 는 **special form** 으로 정의해야한다고 적혀있다. 이 문제에 대해 지난주 스터디때 스터디원들이 많은 고민이 있었고, `define` 대신 `define-syntax` 구문으로 정의해야한다는걸 파악했다. 실제로 `sicp` 패키지에서도 `define-syntax` 로 구현되어있다. 아마 책에서는 4.2절에서 lazy evaluation 에 대해 다루는 내용이 있는데, 여기서 소개되지 않을까 싶다. `stream-filter` 도 마찬가지다.
+* implicit `stream` 을 이해하는게 처음에 어려웠다. 하지만 infinite `stream` 을 정의할때 정말 편리하다. 점화식을 기술한다고 생각하고, evaluation 되는 순서가 점화식의 index 라고 생각하면 그래도 쉽게 문제를 해결할 수 있다.
+* procedure 가 implicit 하게 정의된 `stream` 을 반환하고 싶을때 내부에서 `define` 해줘야 한. 이때 `let` 을 사용해서 local variable 로 정의하려고하면 unbound identifier 에러가 발생한다. 정의에 자기 자신에 대한 참조가 필요하기 때문이다. 그러므로 `define` 구문은 다르게 동작한다고 추측할 수 있다.  
 
 ## 2017-04-30 (Sun)
 
