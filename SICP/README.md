@@ -1,3 +1,25 @@
+## 2017-08-20 (Sun)
+
+* 규진님 마지막 (ㅠㅠ)
+* Exercise 4.5 완료 (~ PM 06:14). `application?` 에서 처리해주도록 `make-if` procedure 를 호출할때 파라미터 구성하는 과정에서 `cons` 가 아니라 `list` 를 사용해야했었음.
+* Exercise 4.6 완료 (~ PM 07:06). 흥미롭게도 Exercise 4.5 와 반대였는데, `application?` 에서 처리해주도록 `make-lambda` 로 만든 lambda object 와 expressions 들을 넘길때 `list` 대신 `cons` 로 넘겨야했음. `list` 로 넘기니까 `1` 을 procedure 로 인식해버림.
+
+전반적으로 `cons` 와 `list` 에 대한 이슈가 있었는데...
+
+```racket
+(define b (list 2 3 4))
+
+(cons 1 b) --> 길이 4짜리
+(list 1 b) --> 길이 2짜리
+```
+
+전자는 길이 4 / 후자는 길이 2 가 되는 차이점 때문이다. Exercise 4.5 에서는 후자였어야 하는데 전자로 했었어서 `cadr` 이 parameter 를 3개 받았다고 에러가 발생한 것이었다.
+
+## 2017-07-16 (Sun)
+
+* `interpreter.rkt` 파일 하나로 합치기
+* `(+ a 10)` 수준의 간단한 evaluation 구현
+
 ## 2017-05-22 (Sun)
 
 * `assignment` 는 **"time variation in real world"** 를 **"time variation in the computer"** 로 표현하는 한 가지 방법이었다. 다른 방법도 있다. 바로 `stream` 이라는 자료구조를 사용하는 방법이다. 어짜피 컴퓨터가 표현하는 time 이라는건 discrete step 으로 구현된다. `stream` 은 이를 사용해서 time function 을 infinite sequence 로 모델링한다. `stream` 이 단순히 `list` 로 표현된 sequence 에서 진화하는 과정에서 delayed evaluation 이 등장한다.
