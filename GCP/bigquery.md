@@ -1,3 +1,14 @@
+## Casting
+
+Standard SQL 에서는 형변환을 위해 `cast` 를 사용한다.
+
+```sql
+select 1503325261387000 / 1000 -- float64 가 되어 1.2332...E12 로 표기된다.
+select cast(1503325261387000 / 1000 as int64) -- 원하는대로 int64 로 변환!
+```
+
+
+
 ## Date / Time 관련
 
 ### micro second 에서 date 로 변환
