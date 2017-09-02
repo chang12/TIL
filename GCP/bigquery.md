@@ -7,8 +7,6 @@ select 1503325261387000 / 1000 -- float64 가 되어 1.2332...E12 로 표기된�
 select cast(1503325261387000 / 1000 as int64) -- 원하는대로 int64 로 변환!
 ```
 
-
-
 ## Date / Time 관련
 
 ### micro second 에서 date 로 변환
@@ -18,3 +16,12 @@ select cast(1503325261387000 / 1000 as int64) -- 원하는대로 int64 로 변�
 ```sql
 DATE(TIMESTAMP_MICROS(1502713851000000 + 3 * 3600 * 1000 * 1000), "+09:00”)
 ```	
+
+### string 에서 timestamp, timestamp 에서 unix epoch 으로 변환
+
+[Bigquery Standard SQL 문서](https://cloud.google.com/bigquery/docs/reference/standard-sql/functions-and-operators#parse_timestamp)
+
+```sql
+SELECT PARSE_TIMESTAMP("%Y%m%d", "20170829", "Asia/Seoul")  -- 2017-08-28 15:00:00 UTC
+SELECT UNIX_MILLIS(PARSE_TIMESTAMP("%Y%m%d", "20170829", "Asia/Seoul"))  -- 1503932400000 
+``` 
