@@ -1,50 +1,11 @@
-http://www.nextree.co.kr/p5864/
-http://kang594.blog.me/39704853
+annotation processor 에 관해 잘 쓰여진 블로그 글을 읽기에 앞서 [Oracle 의 Java 공식 문서의 내용을](http://docs.oracle.com/javase/tutorial/java/annotations/index.html) 간단히 짚어봤다.
 
-## Basic Concepts
-annotation 은 비즈니스 로직에는 영향을 주지 않는다. 하지만 해당 타겟의 연결 방법이나 소스코드의 구조를 변경할 수 있는 유용한 도구이다.
-### annotation of annotation
-* `@Target` 은 annotation 의 타겟을 지정. (예: ElementType.FIELD)
-* `@Retention` 은 annotation 의 지속기간. (예: RetentionPolicy.RUNTIME)
+### Java 8 부터 제공해주는 추가 기능
 
-annotation 을 "제품에 붙이는 라벨" 로 이해하면 좋다고 한다. 예를 들어 사과에 `@CanSale` 라벨이 붙어있다면 **포장하는 시점**에 이 라벨이 붙은 사과들만 골라서 포장할 수 있다. 이때 얘기하는 시점이 `@Rentention` 과 연관이 있을 것이다.
-## 특정 Annotation 달려있는지 여부 확인
-annotation 이 reflection 과 연관되는 부분은 어떤 타겟에 해당 annotation 이 붙어있는지 확인하는 과정에서다. `Class` 나 `Method` 타입을 활용할 수 있다.
-```java
-Class targetClass = Class.forName("타겟클래스이름");
+* **repeated annotation** 을 지원한다. 같은 annotation 을 하나의 타겟에 여러개 달 수 있다. 따로 [관련 문서도](http://docs.oracle.com/javase/tutorial/java/annotations/repeating.html) 존재한다.
+* 기존의 annotation 은 declaration 에만 달 수 있었다. 하지만 생성자 호출 / 형변환 / `implements` 구문 / `throws` 구문에도 달 수 있게 확장되었다. 이들을 묶어서 **type annotation** 이라고 부른다. 마찬가지로 따로 [관련 문서가](http://docs.oracle.com/javase/tutorial/java/annotations/type_annotations.html) 존재한다. 공식 문서에서는 이들을 활용해서 type checking 을 위한 pluggable module 을 만들 수 있다고 소개하면서, [워싱턴 대학에서 만든 Checker Framework](https://checkerframework.org/) 를 소개한다.
 
-for (Method m : targetClass.getDeclaredMethods()) {
-	if (m.isAnnotationPresent(Annotation.class) {
-		...
-	}
-}
-```
-## Annotation 의 필드값 획득
-```java
-public class AnnotationStudy {
-    public static void main(String[] args) throws ClassNotFoundException {
-        Class one = Class.forName("AnnotationStudy$AnnotatedClassOne");
-        Class two = Class.forName("AnnotationStudy$AnnotatedClassTwo");
+### Terminology
 
-        // 구체적인 Annotation 타입으로 캐스팅해주지 않으면, 필드에 대한 getter 를 호출할 수 없다.
-        MyAnnotation forOne = (MyAnnotation) one.getAnnotation(MyAnnotation.class);
-        MyAnnotation forTwo = (MyAnnotation) two.getAnnotation(MyAnnotation.class);
-
-        System.out.println("MyAnnotation #1: desc = " + forOne.desc());
-        System.out.println("MyAnnotation #2: desc = " + forTwo.desc());
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.TYPE)
-    @interface MyAnnotation {
-        String desc();
-    }
-
-    @MyAnnotation(desc = "one")
-    public static class AnnotatedClassOne {}
-    @MyAnnotation(desc = "two")
-    public static class AnnotatedClassTwo {}
-}
-```
-## 구현해볼만한 예제
-* Django 의 `login_required` 같은 데코레이터를 **Java annotation** 으로 구현
+* annotation 정의할때 원소 선언하는걸 **annotation type element declaration** 이라고 부른다.
+* 다른 annotation 정의에 쓰일 수 있는 annotation 을 **meta annotation** 이라고 부른다.
