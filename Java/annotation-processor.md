@@ -1,36 +1,13 @@
-http://hannesdorfmann.com/annotation-processing/annotationprocessing101
+**Hannes Dorfmann** 이 작성한 [ANNOTATION PROCESSING 101](http://hannesdorfmann.com/annotation-processing/annotationprocessing101) 이라는 블로그 포스트를 [번역한 Jason Kim 의 블로그 포스트를](https://medium.com/@jason_kim/annotation-processing-101-%EB%B2%88%EC%97%AD-be333c7b913) 읽었다. Java 의 annotation processing 에 대한 이해도를 높일 수 있었던 좋은 글이었다. ([저자의 GitHub](https://github.com/sockeqwe) 을 들어가보니 Android 에 상당한 내공이 있는 사람인것 같다) 유익했던 포인트 몇 가지를 정리해보자.
 
-## Basic Concepts
-* annotation processor 는 독자적인 JVM 상에서 실행된다.
+### annotation processor 의 처리 대상
 
-## Annotation Processor 등록
-기술한 annotation processor 로 `JAR` 파일을 생성하고 이를 javac 컴파일러에 제출해야한다. `JAR` 파일의 포맷이 링크에 설명되어있다. Google 이 개발한 `AutoService` annotation 을 사용하면 `JAR` 파일 포맷을 자동으로 만들어주므로 편리하다.
-```java
-@AutoService(Processor.class)
-public class FactoryProcessor extends AbstractProcessor {
-	...
-}
-```
-## Element / Elements
-`Element` 는 package, class, method 같은 program element 들을 나타낸다.
-* `PackageElement` 예) package com.example
-* `TypeElement` 예) public class Foo {...} / 메소드의 시그니처
-* `VariableElement` 예) private int a;
-* `ExecutableElement` 예) public foo () {}
+`AbstractProcessor` 의 `process` 메서드를 구현하면서 처리하는 `Element` 인스턴스들은 두 가지 유형인데, 이미 컴파일된 class 파일에 속한걸수도 있고, 컴파일 전의 java 파일에 속한걸 수 있다. 전자는 JAR 파일로 classpath 에 포함시킨 라이브러리의 소스 코드에서 해당 annotation 을 사용한 경우가 될 것이다.
 
-그러므로 Java 코드도 XML 같은 구조화된 텍스트라 할 수 있다. HTML 의 DOM 과 비슷한 방식으로 이해할 수 있다. 대신 **Java 코드는 Element 들로 구조화된 것**이다.
-```java
-TypeElement fooClass = ... ;
-for (Element e : fooClass.getEnclosedElements()) { // Foo 클래스의 child 순회
-	Element parent = e.getEnclosingElement(); // parent == Foo
-}
-```
-`Elements` 는 이러한 `Element` 를 다루기 위한 utils class 이다.
-## TypeMirror / Types
-`TypeElement` 는 Type 그 자체만 나타낸다. 예를 들어 `Foo` 클래스에 대한 `TypeElement` 라면 해당 클래스의 super class 가 무엇인지 등의 정보는 가지고 있지 않다. 이를 위해 `TypeMirror` 가 존재한다. 추가적인 정보를 가지고 있다.
+### Code Generation
 
-`Types` 는 이러한 `TypeMirror` 를 다루기 위한 utils class 이다.
-## Filer
-이름에서 알 수 있듯이, files 를 생성한다.
+annotation processing 의 궁극적인 목표는 code generation 이다. [Square 가 만든 JavaPoet 라이브러리가](https://github.com/square/javapoet) 이 맥락에서 좋은 도움이 될 것이다.
 
-Meal 인터페이스 구현하는 클래스에만 붙어야하므로 이를 검증해야할 것
+### Round
+
+annotation processing 은 여러 round 에 걸쳐 이뤄지는데, `AbstractProcessor` 구현체의 생성자는 **최초 1번만 호출되고**, 이후 매 라운드마다 `process` 메서드가 호출된다. 그러므로 이전 `process` 메서드에서 조작된 `AbstractProcessor` 구현체의 필드들이 이후 `process` 메서드가 호출되는 시점에 그대로 남아있게 된다. 이로 인해 이후 round 의 `process` 메서드에서 동일한 code generation 을 반복하려고 시도할 수 있다. 이를 방지하기 위해서 `process` 메서드가 정상적으로 완료되고나면 적절한 clearing 을 해줘야 할 것이다.
