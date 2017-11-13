@@ -10,3 +10,31 @@ val window = Window.partitionBy($"grouping_col").orderBy($"ordering_col".desc)
 
 df.select($"*", percent_rank.over(window).alias("percent")).where($"percent" < 0.1)
 ```
+
+## JDBC
+
+Spark 문서중에서 [JDBC To Other Databases](https://spark.apache.org/docs/latest/sql-programming-guide.html#jdbc-to-other-databases) 파트를 보면 `DataFrame` 에서 JDBC 를 통해 MySQL 등의 데이터베이스에 읽고/쓰는 방법을 알 수 있다.
+
+```scala
+spark
+	.read
+	.format("jdbc")
+	.option("url", "jdbc:mysql://my_database_endpoint:3306/my_database_name")
+	.option("dbtable", "my_table_name")
+	.option("user", "my_user_name")
+	.option("password", "my_password")
+	.load
+```
+
+```
+sc.parallelize(...)
+  .toDF("field1", "field2", ...)
+  .write
+  .mode("append")
+  .format("jdbc")
+  .option("url", "jdbc:mysql://my_database_endpoint:3306/my_database_name")
+  .option("dbtable", "my_table_name")
+  .option("user", "my_user_name")
+  .option("password", "my_password")
+  .save
+```
