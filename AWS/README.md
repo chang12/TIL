@@ -8,4 +8,4 @@
 
 ### S3
 
-* [boto3 로 S3 에 파일 업로드하기](boto3-s3-upload-file.md)
+* [boto3 로 S3 에 파일 업로드하기](s3.md)
