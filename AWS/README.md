@@ -4,7 +4,7 @@
 
 ### RDS
 
-* [HeidiSQL 로 RDS 머신에 접속하기 (for Windows)](rds#heidisql-클라이언트-프로그램으로-접속.md)
+* [HeidiSQL 로 RDS 머신에 접속하기 (for Windows)](rds.md#heidisql-클라이언트-프로그램으로-접속)
 
 ### S3
 
