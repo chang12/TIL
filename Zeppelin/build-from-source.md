@@ -11,7 +11,7 @@ export SPARK_LOCAL_IP=127.0.0.1
 
 두번째 환경변수는 Spark 가 원격 클러스터가 아닌 로컬 머신에서 실행된다는 걸 뜻한다.
 
-[Zeppelin 홈페이지의 build 문서](http://zeppelin.apache.org/docs/snapshot/install/build.html) 를 따라 빌드한다. 별도의 option 은 주지 않았다.
+[Zeppelin 홈페이지의 build 문서](http://zeppelin.apache.org/docs/0.7.3/install/build.html#building-from-source) 를 따라 빌드한다. 별도의 option 은 주지 않았다.
 
 ```bash
 mvn clean package -DskipTests [Options]
