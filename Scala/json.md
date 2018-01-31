@@ -1,6 +1,6 @@
-## case class 를 serialization
+## JSON string <-> Scala case class
 
-case class 의 camel case 필드 이름들을 snake case 로 바꿔주는 방법을 찾아봤다.
+`lift-json` 에 dependency 가 걸려있다.
 
 ```scala
 import net.liftweb.json.compactRender
@@ -8,19 +8,35 @@ import net.liftweb.json.DefaultFormats
 import net.liftweb.json.Extraction.decompose
 import net.liftweb.json.JsonAST.JField
 import net.liftweb.util.StringHelpers
+```
 
-case class Person(firstName: String, lastName: String)
+JSON string 으로 serialization 할때는, `camel case` 로 적힌 case class 의 필드명을 `snake case` 로 바꿔준다.
 
-val p = Person("Max", "Lee")
+```scala
+def toJson(obj: Any): String = {
+  implicit val formats: DefaultFormats.type = DefaultFormats
+  
+  compactRender(
+    decompose(obj)
+      .transformField {
+        case JField(n, v) => JField(StringHelpers.snakify(n), v)
+      }
+    )
+  }
+```
 
-implicit val formats: DefaultFormats.type = DefaultFormats
-    
-val ser = compactRender(
-  decompose(p)
+case class 로 deserialization 할때는, `snake case` 로 적힌 JSON 필드명을 `camel case` 로 바꿔준다. 호출할때 type parameter 를 명시해준다.
+
+```scala
+def fromJson[A](json: String)(implicit mf: scala.reflect.Manifest[A]): A = {
+  implicit val formats: DefaultFormats.type = DefaultFormats
+
+  parse(json)
     .transformField {
-      case JField(n, v) => JField(StringHelpers.snakify(n), v)
+      case JField(n, v) => JField(StringHelpers.camelifyMethod(n), v)
     }
-)
+    .extract[A]
+}
 
-println(ser)
+// fromJson[List[String]](...)
 ```
