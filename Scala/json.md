@@ -18,8 +18,8 @@ implicit val formats: DefaultFormats.type = DefaultFormats
 val ser = compactRender(
 	decompose(p)
 		.transformField {
-          case JField(n, v) => JField(StringHelpers.snakify(n), v)
-      }
+			case JField(n, v) => JField(StringHelpers.snakify(n), v)
+		}
 )
 
 println(ser)
