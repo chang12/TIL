@@ -11,6 +11,36 @@ val window = Window.partitionBy($"grouping_col").orderBy($"ordering_col".desc)
 df.select($"*", percent_rank.over(window).alias("percent")).where($"percent" < 0.1)
 ```
 
+`row_number`, `rank`, `dense_rank` 도 유용하다. 3가지가 비슷하면서도 각각의 특색을 지니고 있다. 아래 예제로 한눈에 확인해볼 수 있다.
+
+```scala
+val w = Window.partitionBy("id").orderBy("value")
+
+spark
+    .sparkContext
+    .parallelize(
+        Seq(
+            ("a", 1),
+            ("a", 1),
+            ("a", 3),
+            ("a", 4)
+        )
+    )
+    .toDF("id", "value")
+    .withColumn("row_number", row_number.over(w))
+    .withColumn("rank", rank.over(w))
+    .withColumn("dense_rank", dense_rank.over(w))
+    .show
+```
+
+|  id|value|row_number|rank|dense_rank|
+|---:|----:|---------:|---:|---------:|
+|   a|    1|         1|   1|         1|
+|   a|    1|         2|   1|         1|
+|   a|    3|         3|   3|         2|
+|   a|    4|         4|   4|         3|
+
+
 ## JDBC
 
 Spark 문서중에서 [JDBC To Other Databases](https://spark.apache.org/docs/latest/sql-programming-guide.html#jdbc-to-other-databases) 파트를 보면 `DataFrame` 에서 JDBC 를 통해 MySQL 등의 데이터베이스에 읽고/쓰는 방법을 알 수 있다.
