@@ -29,4 +29,4 @@
 * NEXTERS 9기
 
 ## 컨퍼런스
-* APAC 2016 카카오 부스 가위바위보 2일차 예선 승률 1등
+* [PyCon APAC 2016 카카오 부스 가위바위보 2일차 예선 승률 1등](http://tech.kakao.com/2016/08/19/gawibawibo/)
