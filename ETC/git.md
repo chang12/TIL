@@ -10,3 +10,7 @@ home directory 를 확인해보니 .gitignore_global 이라는 파일이 존재�
 # .gitconfig
 
 Sourcetree 로 커밋 히스토리를 보면 "작성자" 탭이 있는데 거기에 대학교 메일과 한국 이름의 영문명이 적혀있었다. 회사 메일과 회사 영어 이름으로 바꾸고 싶어서 찾아보니, `~/.gitconfig` 에 적힌 `user.name` 과 `user.email` 을 바꾸면 되는거였다. 바꾸고나니 이후 커밋부터 바로 반영되었다.
+
+# amend
+
+커밋 후에 미처 커밋에 포함시키지 못한 자잘한 수정이 떠오르는 경우들이 있다. 이때 commit 의 amend 옵션을 사용하면 편리하게 해결할 수 있다. [Git Basics: Adding more changes to your last commit](https://medium.com/@igor_marques/git-basics-adding-more-changes-to-your-last-commit-1629344cb9a8) 포스트에서 처음 접했다. Sourcetree 에서는 커밋할때 커밋 옵션을 설정할 수 있는데, `마지막 커밋 수정` 을 선택하면 된다.
