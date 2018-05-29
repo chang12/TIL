@@ -18,6 +18,7 @@ docker run -id ubuntu:14.04
 docker ps
 
 # open bash shell
-docker exec -i <container_id> bash
+# t option 을 줘야 prompt 가 보인다.
+docker exec -it <container_id> bash
 ```
 
