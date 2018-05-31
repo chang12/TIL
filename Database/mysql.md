@@ -32,3 +32,8 @@ on duplicate key update
 
 * `cast("2017-11-30 00:14:42" as date)`
 * `convert_tz("2017-11-30 00:14:42", "UTC", "Asia/Seoul")`
+
+## Shell
+
+mysql shell 에서 command 뒤에 `\G` 를 붙이면 더 보기좋게 출력해준다.
+
