@@ -7,3 +7,21 @@ brew 로 개발 머신에 scala 를 설치했다. clone 받은 scala project 을
 [sbt 홈페이지의 Command Line Reference 문서](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) 에는 아래처럼 적혀있다.
 
 > **console** Starts the Scala interpreter with a classpath including the compiled sources, all jars in the lib directory, and managed libraries. To return to sbt, type :quit, Ctrl+D (Unix), or Ctrl+Z (Windows). Similarly, test:console starts the interpreter with the test classes and classpath.
+
+* sbt console 실행했을때 출력되는 로그들 이해하기
+    * $ sbt console
+    * [info] Loading settings from idea.sbt,plugin.sbt ...
+    * [info] Loading global plugins from /Users/fakenerd/.sbt/1.0/plugins
+    * [info] Loading settings from assembly.sbt ...
+    * [info] Loading project definition from /Users/fakenerd/Projects/between-data/project
+    * [info] Loading settings from build.sbt ...
+    * [info] Loading settings from build.sbt ...
+    * [info] Set current project to between-data (in build file:/Users/fakenerd/Projects/between-data/)
+    * [info] Compiling 32 Scala sources to /Users/fakenerd/Projects/between-data/nidoran/target/scala-2.11/classes ...
+    * [warn] there was one deprecation warning; re-run with -deprecation for details
+    * [warn] there were 7 feature warnings; re-run with -feature for details
+    * [warn] two warnings found
+    * [info] Done compiling.
+    * [info] Starting scala interpreter...
+    * Welcome to Scala 2.11.11 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_152).
+    * Type in expressions for evaluation. Or try :help.
