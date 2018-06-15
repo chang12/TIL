@@ -1,3 +1,17 @@
+## Extensions ([link](https://kotlinlang.org/docs/reference/extensions.html#extensions))
+
+jackson 의 `ObjectMapper` 으로 json string 을 deserialize 하려는데, 본래 `ObjectMapper` 에 존재하지않는 signature 의 `readValue` method 를 사용할 수 있었다. 어떻게 된건가 navigate 해보니, 다양한 `readValue` fun 들이 선언되어있었다.
+
+```kotlin
+// com.fasterxml.jackson.module.kotlin.Extensions.kt
+
+inline fun <reified T: Any> ObjectMapper.readValue(src: File): T = readValue(src, jacksonTypeRef<T>())
+inline fun <reified T: Any> ObjectMapper.readValue(src: URL): T = readValue(src, jacksonTypeRef<T>())
+// ...
+```
+
+신기해서 찾아보니 kotlin 이 제공하는 **Extensions** 중 **extension functions** 을 선언한거였다. 편리해보인다. 문서에서는 `extend a class with new functionality without having to inherit from the class.` 라고 표현했다.
+
 ## Nullable types and Non-Null Types ([link](https://kotlinlang.org/docs/reference/null-safety.html#nullable-types-and-non-null-types))
 
 kotlin 의 type system 은 `NullPointerException` 을 제거하는걸 목표로 삼고 있다. 그래서 reference 를 nullable reference 와 non-null reference 로 구분한다. 기본적으로 type 을 정의하면 모두 non-null 인것 같고, 뒤에 `?` 을 붙이면 nullable 하게 쓸 수 있다.
