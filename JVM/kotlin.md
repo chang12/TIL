@@ -22,3 +22,7 @@ jackson 을 사용해서 json -> class 로 deserialize 할때 이 nullable / non
 
 * `Int`, `Boolean` type 으로 field 를 선언했을때, json 에 대응하는 property 가 없는 경우, non-null type 이었다면 default 값 (0, false) 으로 deserialize 하고, nullable type 일때는 null 로 deserialize 한다.
 * `String` type 의 field 는 nullable type 일때는 마찬가지로 null 로 deserialize 되지만, non-null type 일때는 `MissingKotlinParameterException` 을 throw 한다.
+
+## Reified type parameters
+
+jackson 의 `ObjectMapper` 로 deserialize 할때 `mapper.readValue<XYZ>("...")` 로 할 수 있어서 편리했다. java 였다면 `mapper.readValue("...", XYZ.class)` 로 했을텐데 말이다. 그래서 찾아보니 저렇게 method 를 호출하면서 `<T>` 를 덧붙여서 명시한 type 을 **reified type parameter** 라고 부른단다.
