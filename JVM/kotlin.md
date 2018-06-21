@@ -26,3 +26,18 @@ jackson 을 사용해서 json -> class 로 deserialize 할때 이 nullable / non
 ## Reified type parameters
 
 jackson 의 `ObjectMapper` 로 deserialize 할때 `mapper.readValue<XYZ>("...")` 로 할 수 있어서 편리했다. java 였다면 `mapper.readValue("...", XYZ.class)` 로 했을텐데 말이다. 그래서 찾아보니 저렇게 method 를 호출하면서 `<T>` 를 덧붙여서 명시한 type 을 **reified type parameter** 라고 부른단다.
+
+## Bytecode 까보기
+
+[Ditto Kim 님의 Kotlin에서 JPA 사용할 때 주의할 점](https://blog.sapzil.org/2017/11/02/kotlin-jpa-pitfalls/) 포스트에 IntelliJ 에서 kotlin class 의 bytecode 를 보는 방법이 적혀있다. `public <init>` 으로 검색해서 어떤 constructor 들이 만들어졌는지 확인할 수 있다.
+
+```
+// access flags 0x1
+public <init>(Ljava/lang/Integer;Ljava/lang/String;)V
+  @Lorg/jetbrains/annotations/Nullable;() // invisible, parameter 0
+  @Lorg/jetbrains/annotations/Nullable;() // invisible, parameter 1
+ L0
+  LINENUMBER 3 L0
+  ALOAD 0
+...
+```
