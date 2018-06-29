@@ -37,3 +37,13 @@ on duplicate key update
 
 mysql shell 에서 command 뒤에 `\G` 를 붙이면 더 보기좋게 출력해준다.
 
+## Permission
+
+table 단위로 조회를 허용할 수 있었다.
+
+```sql
+grant select, show view 
+on {database_name}.`{table_name}` 
+to '{user_name}'@'%'
+```
+
