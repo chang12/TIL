@@ -28,6 +28,8 @@ on duplicate key update
 
 `greatest`, `least` function 의 parameter 중 하나라도 null 이면 null 을 반환하기 때문에, nullable column 을 다룰경우 `coalesce` 로 null 인 경우를 고려해줘야한다.
 
+### union 과 union all 은 다르다.
+
 ## Functions
 
 * `cast("2017-11-30 00:14:42" as date)`

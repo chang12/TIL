@@ -45,3 +45,7 @@ public <init>(Ljava/lang/Integer;Ljava/lang/String;)V
 # lateinit
 
 [Late-Initialized Properties and Variables](https://kotlinlang.org/docs/reference/properties.html#late-initialized-properties-and-variables) 를 읽으면 된다. non-null type 의 property 를 constructor 에서 initialize 하기 힘들때 사용할 수 있다.
+
+# Data Class's Copy
+
+data class 의 `copy` 메서드가 유용하다. [Copying](https://kotlinlang.org/docs/reference/data-classes.html#copying)
