@@ -1,0 +1,1 @@
+Spark 의 `DataFrameReader` 로 `s3a://` 경로의 파일을 읽어서 처리하곤 한다. 이때 s3 에 접근하는 credentials 는 내부에서 어떻게 만들지 궁금했다. 그러다가 `S3AFileSystem` 의 존재를 알게됬는데, hadoop-common 의 `FileSystem` 상속한다. 이름부터가 HDFS 에서 중요한 역할을 맡을 것 같다.
