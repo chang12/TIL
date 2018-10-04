@@ -94,6 +94,22 @@ Port Forwarding 할때 선언한 port 와 맞추면 된다.
 
 # 기타
 
+## `spark.catalog.createTable`
+
+### csv
+
+```scala
+val options = Map(
+    "path" -> "s3a://awskrug-chang12/uber-raw", 
+    "header" -> "true"
+)
+spark.catalog.createTable("test", "com.databricks.spark.csv", options)
+```
+
+Spark SQL 에서 정상 동작하지만, Glue Data Catalog 에서 Table 의 Schema 가 뭉개짐 (array 타입의 `col` 하나뿐)
+
+### jdbc
+
 ```scala
 val options = Map(
     "url" -> "jdbc:mysql://rds-awskrug.cpjjiovqgjkq.ap-northeast-2.rds.amazonaws.com:3306", 
@@ -102,7 +118,7 @@ val options = Map(
     "password" -> "password"
 )
 spark.catalog.createTable("test", "org.apache.spark.sql.jdbc", options)
-
-// java.lang.IllegalArgumentException: Can not create a Path from an empty string ...
 ```
+
+> java.lang.IllegalArgumentException: Can not create a Path from an empty string ...
  
