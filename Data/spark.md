@@ -35,3 +35,8 @@ System.setProperty(SDKGlobalConfiguration.ENABLE_S3_SIGV4_SYSTEM_PROPERTY, "true
 sc.hadoopConfiguration.set("fs.s3a.endpoint", "s3.ap-northeast-2.amazonaws.com")
 ```
 
+# 유용했던 것들
+
+## `explode_outer`
+
+`explode` 를 쓰면 array type 의 컬럼 값이 null 인 `Row` 들을 잃게되는데, `explode_outer` 를 쓰면 null 인 `Row` 을 잃지 않는다.
