@@ -14,3 +14,14 @@ Sourcetree 로 커밋 히스토리를 보면 "작성자" 탭이 있는데 거기
 # amend
 
 커밋 후에 미처 커밋에 포함시키지 못한 자잘한 수정이 떠오르는 경우들이 있다. 이때 commit 의 amend 옵션을 사용하면 편리하게 해결할 수 있다. [Git Basics: Adding more changes to your last commit](https://medium.com/@igor_marques/git-basics-adding-more-changes-to-your-last-commit-1629344cb9a8) 포스트에서 처음 접했다. Sourcetree 에서는 커밋할때 커밋 옵션을 설정할 수 있는데, `마지막 커밋 수정` 을 선택하면 된다.
+
+# GitHub Deploy Keys
+
+ubuntu EC2 머신에서 private GitHub repo 를 clone 받기 위해 ssh key 를 만들고, Deploy Keys 에 등록한다. `git clone git@github.com:{organization}/{repo}.git` 으로 clone 을 받는데, 이때 ssh config 를 설정해둬야 한다.
+
+```ssh
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile {path_to_ssh_private_key}
+```
